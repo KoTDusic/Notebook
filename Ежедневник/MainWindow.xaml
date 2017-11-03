@@ -1,47 +1,42 @@
-﻿<Window x:Class="Ежедневник.MainWindow"
+﻿<Window x:Class="Notebook.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        Title="MainWindow" Height="350" Width="525" MinWidth="300" Background="{x:Null}"
-        WindowStyle="None" Topmost="True">
+        xmlns:ci="clr-namespace:CommonInformation;assembly=CommonInformation"
+        xmlns:notebook="clr-namespace:Notebook"
+        Title="Ежедневник" Height="350" Width="525" MinWidth="300" Background="{x:Null}"
+        WindowStyle="None">
+    <Window.DataContext>
+        <notebook:NotesViewModel/>
+    </Window.DataContext>
     <Window.Resources>
-        <ContextMenu x:Key="TrayMenu">
-            <ContextMenu.Items>
-                    <MenuItem Header="New"></MenuItem>
-                    <MenuItem Header="Open"></MenuItem>
-                    <MenuItem Header="Save"></MenuItem>
-                    <Separator></Separator>
-                    <MenuItem Header="SaveAs..."></MenuItem>
-            </ContextMenu.Items>
-        </ContextMenu>
+        <ResourceDictionary Source="GenericResources.xaml"/>
     </Window.Resources>
-    <Border BorderBrush="Black" BorderThickness="1" Background="#9AD9EA"
+    <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource topBackgroundBrush}"
             CornerRadius="5,5,5,5" MouseDown="Border_MouseDown">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <tb:TaskbarIcon IconSource="Images/tray_icon.ico" ContextMenu="{StaticResource TrayMenu}"
-                    MenuActivation="RightClick"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <Image Source="Images/left_arrow.png"></Image>
-                <TextBlock FontSize="20" Margin="30,5,30,5" Background="White">11 июня 2017</TextBlock>
-                <Image Source="Images/left_arrow.png" RenderTransformOrigin="0.5,0.5">
-                    <Image.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
-                            <SkewTransform AngleY="0" AngleX="0"/>
-                            <RotateTransform Angle="0"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Image.RenderTransform>
+            <tb:TaskbarIcon Name="TaskbarIcon" Grid.Row="0" IconSource="{Binding Source={x:Static ci:Images.TrayIconKey}}" 
+                            ContextMenu="{StaticResource TrayMenu}" MenuActivation="RightClick"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding Source={x:Static ci:Images.LeftArrowImage}}"/>
+                <TextBlock HorizontalAlignment="Center" Grid.Column="1" FontSize="20"
+                           Margin="30,5,30,5">11 июня 2017</TextBlock>
+                <Image Grid.Column="2" Source="{Binding Source={x:Static ci:Images.LeftArrowImage}}">
+                    <Image.LayoutTransform>
+                        <RotateTransform Angle="180"/>
+                    </Image.LayoutTransform>
                 </Image>
-            </StackPanel>
-
-            <ScrollViewer Grid.Row="1">
-
-            </ScrollViewer>
+            </Grid>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource listboxNotesStyle}"/>
         </Grid>
     </Border>
 </Window>

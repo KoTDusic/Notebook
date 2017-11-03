@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SQLite;
 using System.Data;
-using Ежедневник.Models;
+using System.Data.SQLite;
 using System.Globalization;
+using CommonInformation.Models;
+using Ежедневник;
 
-
-namespace Ежедневник.Repozitorys
+namespace CommonInformation.Repozitorys
 {
     public static class NoteRepozitory
     {
-        const string dateFormat = "dd.MM.yyyy";
-        public static IEnumerable<Note> getAll()
+        public static IEnumerable<Note> GetAll()
         {
             var connection = SingltoneConnection.GetInstance();
             var command = connection.CreateCommand();
@@ -28,7 +24,7 @@ namespace Ежедневник.Repozitorys
                     Id = Convert.ToInt32(reader["id"]),
                     //http://blog.stevex.net/string-formatting-in-csharp/
                     
-                    Date = DateTime.ParseExact(reader["date"].ToString(),dateFormat, CultureInfo.InvariantCulture),
+                    Date = DateTime.ParseExact(reader["date"].ToString(),Note.DataFormat, CultureInfo.InvariantCulture),
                     Message = reader["note"].ToString(),
                     IsArchived = Convert.ToBoolean(reader["isArhived"].ToString())
                 });
@@ -46,7 +42,7 @@ namespace Ежедневник.Repozitorys
             Note res = new Note
             {
                 Id = Convert.ToInt32(reader["id"]),
-                Date = DateTime.ParseExact(reader["date"].ToString(), dateFormat, CultureInfo.InvariantCulture),
+                Date = DateTime.ParseExact(reader["date"].ToString(), Note.DataFormat, CultureInfo.InvariantCulture),
                 Message = reader["note"].ToString(),
                 IsArchived = Convert.ToBoolean(reader["isArhived"].ToString())
             };
@@ -60,7 +56,7 @@ namespace Ежедневник.Repozitorys
             command.CommandType = CommandType.Text;
             command.CommandText = "insert into NOTES(note,date,isArhived) values(@note,@date,@archived);";
             command.Parameters.Add(new SQLiteParameter("@note",newNote.Message));
-            command.Parameters.Add(new SQLiteParameter("@date", newNote.Date.ToString(dateFormat,CultureInfo.InvariantCulture)));
+            command.Parameters.Add(new SQLiteParameter("@date", newNote.Date.ToString(Note.DataFormat, CultureInfo.InvariantCulture)));
             command.Parameters.Add(new SQLiteParameter("@archived", newNote.IsArchived));
             var result = command.ExecuteNonQuery();
             if (result == 0) throw new Exception("Ошибка, данные не добавлены в базу");
@@ -81,7 +77,7 @@ namespace Ежедневник.Repozitorys
             command.CommandType = CommandType.Text;
             command.CommandText = "update NOTES set note=@note, date=@date, isArhived=@archived where id = @id";
             command.Parameters.Add(new SQLiteParameter("@note", note.Message));
-            command.Parameters.Add(new SQLiteParameter("@date", note.Date.ToString(dateFormat, CultureInfo.InvariantCulture)));
+            command.Parameters.Add(new SQLiteParameter("@date", note.Date.ToString(Note.DataFormat, CultureInfo.InvariantCulture)));
             command.Parameters.Add(new SQLiteParameter("@archived", note.IsArchived));
             command.Parameters.Add(new SQLiteParameter("@id", note.Id));
             var result = command.ExecuteNonQuery();

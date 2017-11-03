@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Ежедневник">
+    <Color x:Key="topBackgroundColor">#9AD9EA</Color>
+    <Color x:Key="noteBackgroundColor">LightBlue</Color>
+    
+    <SolidColorBrush x:Key="topBackgroundBrush" Color="{StaticResource topBackgroundColor}"/>
+    <SolidColorBrush x:Key="noteBackgroundBrush" Color="{StaticResource noteBackgroundColor}"/>
+</ResourceDictionary>
