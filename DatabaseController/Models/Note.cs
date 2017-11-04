@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CommonInformation.Models
+namespace DatabaseController.Models
 {
     public class Note
     {

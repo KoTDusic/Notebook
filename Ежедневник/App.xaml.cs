@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Ежедневник
+namespace Notebook
 {
     /// <summary>
     /// Логика взаимодействия для App.xaml

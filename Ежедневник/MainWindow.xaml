@@ -4,37 +4,44 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:ci="clr-namespace:CommonInformation;assembly=CommonInformation"
         xmlns:notebook="clr-namespace:Notebook"
-        Title="Ежедневник" Height="350" Width="525" MinWidth="300" Background="{x:Null}"
-        WindowStyle="None">
+        Title="Ежедневник" Background="{x:Null}" AllowsTransparency="True"
+        WindowStyle="None" ShowInTaskbar="False" Name="Window">
     <Window.DataContext>
         <notebook:NotesViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <ResourceDictionary Source="GenericResources.xaml"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/CommonInformation;component/GenericResources.xaml" />
+                <ResourceDictionary>
+                    <ContextMenu x:Key="TrayMenu">
+                        <ContextMenu.Items>
+                            <MenuItem Header="New" Command="{x:Static notebook:WindowCommands.AddNewNoteCommand}"/>
+                            <MenuItem Header="Open"/>
+                            <MenuItem Header="Save"/>
+                            <Separator></Separator>
+                            <MenuItem Header="Закрыть" Command="{x:Static notebook:WindowCommands.CloseApplicationCommand}"/>
+                        </ContextMenu.Items>
+                    </ContextMenu>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource topBackgroundBrush}"
-            CornerRadius="5,5,5,5" MouseDown="Border_MouseDown">
+            CornerRadius="5,5,5,5">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <tb:TaskbarIcon Name="TaskbarIcon" Grid.Row="0" IconSource="{Binding Source={x:Static ci:Images.TrayIconKey}}" 
+            <tb:TaskbarIcon LeftClickCommand="{x:Static notebook:WindowCommands.MoveToTopCommand}"
+                            LeftClickCommandParameter="{Binding ElementName=Window}"
+                            Grid.Row="0" IconSource="{Binding Source={x:Static ci:Images.TrayIconImage}}" 
                             ContextMenu="{StaticResource TrayMenu}" MenuActivation="RightClick"/>
             <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Image Grid.Column="0" Source="{Binding Source={x:Static ci:Images.LeftArrowImage}}"/>
-                <TextBlock HorizontalAlignment="Center" Grid.Column="1" FontSize="20"
-                           Margin="30,5,30,5">11 июня 2017</TextBlock>
-                <Image Grid.Column="2" Source="{Binding Source={x:Static ci:Images.LeftArrowImage}}">
-                    <Image.LayoutTransform>
-                        <RotateTransform Angle="180"/>
-                    </Image.LayoutTransform>
-                </Image>
+                <Button Command="{x:Static notebook:WindowCommands.MinimizeWindowCommand}"
+                        CommandParameter="{Binding ElementName=Window}"
+                        Width="32" Height="32" HorizontalAlignment="Right" Background="Red" Content="__"/>
             </Grid>
             <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource listboxNotesStyle}"/>
         </Grid>

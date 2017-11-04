@@ -1,7 +1,5 @@
-﻿using System.ComponentModel;
-using System.Windows;
-using System.Windows.Input;
-using CommonInformation.Repozitorys;
+﻿using System.Windows;
+
 namespace Notebook
 {
     /// <summary>
@@ -12,18 +10,12 @@ namespace Notebook
         public MainWindow()
         {
             InitializeComponent();
-            MaxWidth = SystemParameters.WorkArea.Width / 2;
             Height = SystemParameters.WorkArea.Height;
-            Width = MinWidth;
-        }
-
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            try
-            {
-                DragMove();
-            }
-            catch { }
+            Width = SystemParameters.WorkArea.Width/4;
+            ResizeMode = ResizeMode.NoResize;
+            WindowStartupLocation = WindowStartupLocation.Manual;
+            Left = SystemParameters.WorkArea.Width * 3 / 4;
+            Top = 0;
         }
     }
 }

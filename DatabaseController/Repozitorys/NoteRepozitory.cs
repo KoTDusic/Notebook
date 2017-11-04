@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Globalization;
-using CommonInformation.Models;
-using Ежедневник;
+using DatabaseController.Models;
 
-namespace CommonInformation.Repozitorys
+namespace DatabaseController.Repozitorys
 {
     public static class NoteRepozitory
     {

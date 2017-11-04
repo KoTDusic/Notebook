@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1AA3E138-5211-4DD0-A9DC-FDD64C363FC6}</ProjectGuid>
+    <ProjectGuid>{3C04F42F-6D8C-42B0-90F7-73F3BCC95613}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommonInformation</RootNamespace>
-    <AssemblyName>CommonInformation</AssemblyName>
+    <RootNamespace>DatabaseController</RootNamespace>
+    <AssemblyName>DatabaseController</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,63 +33,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net451\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseNotifcationObject.cs" />
-    <Compile Include="ModalWindow\CommonModalWindow.xaml.cs">
-      <DependentUpon>CommonModalWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ModalWindow\ControlsCreator.cs" />
-    <Compile Include="Images\Images.cs" />
-    <Compile Include="ModalWindow\ModalWindowControl.cs" />
-    <Compile Include="ModalWindow\ModalWindowPresenter.cs" />
+    <Compile Include="Models\Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Repozitorys\NoteRepozitory.cs" />
+    <Compile Include="SingltoneConnection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\left_arrow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\folder.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Images\Book.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <None Include="packages.config">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ModalWindow\CommonModalWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GenericResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ModalWindow\ModalWindowStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DatabaseController1\DatabaseController.csproj">
-      <Project>{05275299-82b5-4514-8d96-88afc949d3ce}</Project>
-      <Name>DatabaseController</Name>
-    </ProjectReference>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" />

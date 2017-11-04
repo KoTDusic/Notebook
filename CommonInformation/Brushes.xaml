@@ -6,4 +6,9 @@
     
     <SolidColorBrush x:Key="topBackgroundBrush" Color="{StaticResource topBackgroundColor}"/>
     <SolidColorBrush x:Key="noteBackgroundBrush" Color="{StaticResource noteBackgroundColor}"/>
+    <LinearGradientBrush x:Key="GrayGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="DarkGray" Offset="0" />
+        <GradientStop Color="#CCCCFF" Offset="0.5" />
+        <GradientStop Color="DarkGray" Offset="1" />
+    </LinearGradientBrush>
 </ResourceDictionary>
