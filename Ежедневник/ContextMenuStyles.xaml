@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Notebook"
+                    xmlns:commonInformation="clr-namespace:CommonInformation;assembly=CommonInformation">
+    <ContextMenu x:Key="TrayMenu">
+        <ContextMenu.Items>
+            <MenuItem Header="{commonInformation:LanguageHelper Key=Add}" Command="{x:Static local:WindowCommands.AddNewNoteCommand}"/>
+            <Separator></Separator>
+            <MenuItem Header="{commonInformation:LanguageHelper Key=Close}" Command="{x:Static local:WindowCommands.CloseApplicationCommand}"/>
+        </ContextMenu.Items>
+    </ContextMenu>
+</ResourceDictionary>

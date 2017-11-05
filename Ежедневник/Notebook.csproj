@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,16 +65,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddNoteViewModel.cs" />
-    <Compile Include="AddNoteView\AddNoteView.xaml.cs">
-      <DependentUpon>AddNoteView.xaml</DependentUpon>
+    <Compile Include="AddEditNoteViewModel.cs" />
+    <Compile Include="AddEditNoteView\AddEditNoteView.xaml.cs">
+      <DependentUpon>AddEditNoteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="WindowCommands.cs" />
-    <Page Include="AddNoteView\AddNoteResource.xaml">
+    <Page Include="AddEditNoteView\AddNoteResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddNoteView\AddNoteView.xaml">
+    <Page Include="AddEditNoteView\AddEditNoteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContextMenuStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListNotesStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

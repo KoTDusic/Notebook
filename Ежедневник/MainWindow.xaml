@@ -4,6 +4,7 @@
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:ci="clr-namespace:CommonInformation;assembly=CommonInformation"
         xmlns:notebook="clr-namespace:Notebook"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         Title="Ежедневник" Background="{x:Null}" AllowsTransparency="True"
         WindowStyle="None" ShowInTaskbar="False" Name="Window">
     <Window.DataContext>
@@ -13,22 +14,21 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/CommonInformation;component/GenericResources.xaml" />
-                <ResourceDictionary>
-                    <ContextMenu x:Key="TrayMenu">
-                        <ContextMenu.Items>
-                            <MenuItem Header="New" Command="{x:Static notebook:WindowCommands.AddNewNoteCommand}"/>
-                            <MenuItem Header="Open"/>
-                            <MenuItem Header="Save"/>
-                            <Separator></Separator>
-                            <MenuItem Header="Закрыть" Command="{x:Static notebook:WindowCommands.CloseApplicationCommand}"/>
-                        </ContextMenu.Items>
-                    </ContextMenu>
-                </ResourceDictionary>
+                <ResourceDictionary Source="ListNotesStyle.xaml" />
+                <ResourceDictionary Source="ContextMenuStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
     <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource topBackgroundBrush}"
             CornerRadius="5,5,5,5">
+        <Border.ContextMenu>
+            <ContextMenu>
+                <ContextMenu.Items>
+                    <MenuItem Header="{ci:LanguageHelper Key=Add}"
+                              Command="{x:Static notebook:WindowCommands.AddNewNoteCommand}"/>
+                </ContextMenu.Items>
+            </ContextMenu>
+        </Border.ContextMenu>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -43,7 +43,31 @@
                         CommandParameter="{Binding ElementName=Window}"
                         Width="32" Height="32" HorizontalAlignment="Right" Background="Red" Content="__"/>
             </Grid>
-            <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource listboxNotesStyle}"/>
+            <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource noteListBoxStyle}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:EventTrigger.Actions>
+                            <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=ListBox}, Path=(Control.DataContext).(notebook:NotesViewModel.EditNoteCommand)}"
+                                                   CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListBox},Path=(ListBox.SelectedItem)}"/>
+                        </i:EventTrigger.Actions>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListBox.ContextMenu>
+                    <ContextMenu DataContext="{Binding RelativeSource={RelativeSource Self},
+                        Path=PlacementTarget}">
+                        <ContextMenu.Items>
+                            <MenuItem Header="{ci:LanguageHelper Key=Add}" 
+                                      Command="{x:Static notebook:WindowCommands.AddNewNoteCommand}"/>
+                            <MenuItem Header="{ci:LanguageHelper Key=Remove}"
+                                      Command="{Binding Path=(Control.DataContext).(notebook:NotesViewModel.DeleteNoteCommand)}"
+                                      CommandParameter="{Binding (ListBox.SelectedItem)}"/>
+                            <MenuItem Header="{ci:LanguageHelper Key=Edit}"
+                                      Command="{Binding Path=(Control.DataContext).(notebook:NotesViewModel.EditNoteCommand)}"
+                                      CommandParameter="{Binding (ListBox.SelectedItem)}"/>
+                        </ContextMenu.Items>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
         </Grid>
     </Border>
 </Window>

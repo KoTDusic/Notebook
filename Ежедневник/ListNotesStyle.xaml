@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Notebook"
+                    xmlns:models="clr-namespace:DatabaseController.Models;assembly=DatabaseController"
+                    xmlns:commonInformation="clr-namespace:CommonInformation;assembly=CommonInformation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CommonInformation;component/GenericResources.xaml" />
+        <ResourceDictionary Source="ContextMenuStyles.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="noteListBoxStyle" TargetType="ListBox">
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Background" Value="{StaticResource noteBackgroundBrush}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="brd" Background="{TemplateBinding Background}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                                        BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="LimeGreen"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="BorderBrush" Value="Black"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="{StaticResource topBackgroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate DataType="{x:Type models:Note}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="{Binding Date, StringFormat={x:Static models:Note.DataFormat}}" />
+                            <TextBlock Grid.Row="1" Text="{Binding Message}" TextWrapping="Wrap" 
+                                       Width="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=ActualWidth}"/>
+                        </Grid>
+                        <Button Grid.Column="1" Width="32" Height="32" Style="{StaticResource archivedIndicatorStyle}" >
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    
+</ResourceDictionary>

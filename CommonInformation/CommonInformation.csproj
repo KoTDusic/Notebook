@@ -48,15 +48,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseNotifcationObject.cs" />
+    <Compile Include="Convertors\EnumBooleanConverter.cs" />
     <Compile Include="ModalWindow\CommonModalWindow.xaml.cs">
       <DependentUpon>CommonModalWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModalWindow\ConfirmationTextControl.xaml.cs">
+      <DependentUpon>ConfirmationTextControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModalWindow\ControlsCreator.cs" />
     <Compile Include="Images\Images.cs" />
+    <Compile Include="ModalWindow\IModalWindowSettings.cs" />
     <Compile Include="ModalWindow\ModalWindowControl.cs" />
     <Compile Include="ModalWindow\ModalWindowPresenter.cs" />
+    <Compile Include="ModalWindow\ModalWindowSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="LanguageHelperExtension.cs" />
+    <Compile Include="LanguageDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\left_arrow.png" />
@@ -77,20 +85,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ModalWindow\ConfirmationTextControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModalWindow\ModalWindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseController1\DatabaseController.csproj">
-      <Project>{05275299-82b5-4514-8d96-88afc949d3ce}</Project>
-      <Name>DatabaseController</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\tray_icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\archive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\archive_activated.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

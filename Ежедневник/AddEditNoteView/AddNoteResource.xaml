@@ -1,0 +1,48 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:notebook="clr-namespace:Notebook"
+                    xmlns:convertors="clr-namespace:CommonInformation.Convertors;assembly=CommonInformation"
+                    xmlns:commonInformation="clr-namespace:CommonInformation;assembly=CommonInformation">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <convertors:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    <DataTemplate x:Key="AddNoteTemplate" DataType="{x:Type notebook:AddEditNoteViewModel}">
+        <Border Margin="10" DataContext="{Binding Note}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid IsSharedSizeScope="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="FirstColumn"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"
+                           Text="{commonInformation:LanguageHelper Key=DateText}"/>
+                <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Date}"/>
+                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                          Header="{commonInformation:LanguageHelper Key=Priority}">
+                    <StackPanel Orientation="Vertical">
+                        <RadioButton Content="{commonInformation:LanguageHelper Key=LowPriority}" 
+                                     IsChecked="{Binding Priority, 
+                            Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Low}"/>
+                        <RadioButton Content="{commonInformation:LanguageHelper Key=MediumPriority}"
+                                     IsChecked="{Binding Priority, 
+                            Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Medium}"/>
+                        <RadioButton Content="{commonInformation:LanguageHelper Key=HightPriority}"
+                            IsChecked="{Binding Priority, 
+                            Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Hight}"/>
+                    </StackPanel>
+                </GroupBox>
+                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{commonInformation:LanguageHelper Key=NoteMessage}"/>
+                <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                    <TextBox Text="{Binding Message}" TextWrapping="Wrap" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>
