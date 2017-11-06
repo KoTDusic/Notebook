@@ -9,7 +9,6 @@ namespace Notebook
         public static ICommand MoveToTopCommand { get; }= new RelayCommand(MoveToTopExecute);
         public static ICommand MinimizeWindowCommand { get; } = new RelayCommand(MinimizeWindowExecute);
         public static ICommand CloseApplicationCommand { get; } = new RelayCommand(CloseApplicationExecute);
-        public static ICommand AddNewNoteCommand { get; } = new RelayCommand(o=>AddNewNoteExecute());
 
         private static void MoveToTopExecute(object obj)
         {
@@ -33,13 +32,6 @@ namespace Notebook
         private static void CloseApplicationExecute(object obj)
         {
             Application.Current.Shutdown();
-        }
-        private static void AddNewNoteExecute()
-        {
-            var viewModel = new AddEditNoteViewModel();
-            var view = new AddEditNoteView(viewModel);
-            view.WindowSettings.Title = LanguageDictionary.GetValue("AddNote");
-            ModalWindowPresenter.ShowModalOkCancel(view);
         }
     }
 }

@@ -83,6 +83,10 @@ namespace CommonInformation
             }
             wnd.ResizeMode = settings.ResizeMode;
             wnd.Title = settings.Title;
+            if (settings.Icon != null)
+            {
+                wnd.Icon = settings.Icon;
+            }
         }
         private static void CloseCurrentWindowExecute()
         {

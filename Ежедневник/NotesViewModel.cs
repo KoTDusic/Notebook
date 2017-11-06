@@ -14,14 +14,18 @@ namespace Notebook
     {
         public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
 
-        public ICommand DeleteNoteCommand { get; private set; }
+
+        public ICommand AddNewNoteCommand { get; private set; }
         public ICommand EditNoteCommand { get; private set; }
+        public ICommand DeleteNoteCommand { get; private set; }
+       
         public ICommand MoveToArchveCommand { get; private set; }
 
         private void InitCommands()
         {
-            DeleteNoteCommand = new RelayCommand(DeleteNoteExecute);
+            AddNewNoteCommand = new RelayCommand(o => AddNewNoteExecute());
             EditNoteCommand = new RelayCommand(EditNoteExecute);
+            DeleteNoteCommand = new RelayCommand(DeleteNoteExecute);
             MoveToArchveCommand = new RelayCommand(ArchiveNoteExecute);
         }
 
@@ -46,6 +50,28 @@ namespace Notebook
             FetchDataFromDatabase();
         }
 
+        private void AddNewNoteExecute()
+        {
+            var viewModel = new AddEditNoteViewModel();
+            var view = new AddEditNoteView(viewModel);
+            view.WindowSettings.Title = LanguageDictionary.GetValue("AddNote");
+            var result = ModalWindowPresenter.ShowModalOkCancel(view);
+            if (!result)
+            {
+                return;
+            }
+            //throw new Exception("test");
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                NoteRepozitory.Insert(viewModel.Note);
+                FetchDataFromDatabase();
+            }
+            catch (Exception e)
+            {
+                ModalWindowPresenter.ShowErrorMessage("AddNoteException", e);
+            }
+        }
         private void EditNoteExecute(object obj)
         {
             var viewModel = new AddEditNoteViewModel();
@@ -67,17 +93,15 @@ namespace Notebook
                 return;
             }
 
-            //throw new Exception("test");
             try
             {
                 // ReSharper disable once PossibleNullReferenceException
                 NoteRepozitory.Update(clone);
-                Notes.Remove(note);
-                Notes.Add(clone);
+                FetchDataFromDatabase();
             }
             catch (Exception e)
             {
-                ModalWindowPresenter.ShowErrorMessage("DeleteNoteException", e);
+                ModalWindowPresenter.ShowErrorMessage("EditNoteException", e);
             }
         }
         private void DeleteNoteExecute(object obj)
@@ -101,7 +125,7 @@ namespace Notebook
             {
                 // ReSharper disable once PossibleNullReferenceException
                 NoteRepozitory.Delete(note.Id);
-                Notes.Remove(note);
+                FetchDataFromDatabase();
             }
             catch (Exception e)
             {

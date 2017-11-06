@@ -15,5 +15,8 @@ namespace CommonInformation
 
         public static string ArchiveActivatedImageKey = "pack://application:,,,/CommonInformation;component/Images/archive_activated.png";
         public static Uri ArchiveActivatedImage = new Uri(ArchiveActivatedImageKey, UriKind.Absolute);
+
+        public static string FolderImageKey = "pack://application:,,,/CommonInformation;component/Images/folder.ico";
+        public static Uri FolderImage = new Uri(FolderImageKey, UriKind.Absolute);
     }
 }

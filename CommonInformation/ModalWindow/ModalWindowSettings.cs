@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CommonInformation.ModalWindow
 {
@@ -10,5 +12,6 @@ namespace CommonInformation.ModalWindow
         public int MaxWidth { get; set; }
         public int MaxHeight { get; set; }
         public string Title { get; set; }
+        public ImageSource Icon { get; set; }= new BitmapImage(Images.FolderImage);
     }
 }

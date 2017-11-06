@@ -15,7 +15,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/CommonInformation;component/GenericResources.xaml" />
                 <ResourceDictionary Source="ListNotesStyle.xaml" />
-                <ResourceDictionary Source="ContextMenuStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -25,7 +24,7 @@
             <ContextMenu>
                 <ContextMenu.Items>
                     <MenuItem Header="{ci:LanguageHelper Key=Add}"
-                              Command="{x:Static notebook:WindowCommands.AddNewNoteCommand}"/>
+                              Command="{Binding Path=(notebook:NotesViewModel.AddNewNoteCommand)}"/>
                 </ContextMenu.Items>
             </ContextMenu>
         </Border.ContextMenu>
@@ -36,12 +35,24 @@
             </Grid.RowDefinitions>
             <tb:TaskbarIcon LeftClickCommand="{x:Static notebook:WindowCommands.MoveToTopCommand}"
                             LeftClickCommandParameter="{Binding ElementName=Window}"
-                            Grid.Row="0" IconSource="{Binding Source={x:Static ci:Images.TrayIconImage}}" 
-                            ContextMenu="{StaticResource TrayMenu}" MenuActivation="RightClick"/>
+                            Grid.Row="0" IconSource="{Binding Source={x:Static ci:Images.TrayIconImage}}"
+                            MenuActivation="RightClick">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <ContextMenu.Items>
+                            <MenuItem Header="{ci:LanguageHelper Key=Add}" 
+                                      Command="{Binding Path=(notebook:NotesViewModel.AddNewNoteCommand)}"/>
+                            <Separator></Separator>
+                            <MenuItem Header="{ci:LanguageHelper Key=Close}" 
+                                      Command="{x:Static notebook:WindowCommands.CloseApplicationCommand}"/>
+                        </ContextMenu.Items>
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
             <Grid Grid.Row="0">
                 <Button Command="{x:Static notebook:WindowCommands.MinimizeWindowCommand}"
                         CommandParameter="{Binding ElementName=Window}"
-                        Width="32" Height="32" HorizontalAlignment="Right" Background="Red" Content="__"/>
+                        Width="32" Height="32" HorizontalAlignment="Right" Style="{StaticResource minimizeButton}"/>
             </Grid>
             <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource noteListBoxStyle}">
                 <i:Interaction.Triggers>
@@ -57,7 +68,7 @@
                         Path=PlacementTarget}">
                         <ContextMenu.Items>
                             <MenuItem Header="{ci:LanguageHelper Key=Add}" 
-                                      Command="{x:Static notebook:WindowCommands.AddNewNoteCommand}"/>
+                                      Command="{Binding Path=(Control.DataContext).(notebook:NotesViewModel.AddNewNoteCommand)}"/>
                             <MenuItem Header="{ci:LanguageHelper Key=Remove}"
                                       Command="{Binding Path=(Control.DataContext).(notebook:NotesViewModel.DeleteNoteCommand)}"
                                       CommandParameter="{Binding (ListBox.SelectedItem)}"/>

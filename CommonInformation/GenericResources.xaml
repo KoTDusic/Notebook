@@ -90,4 +90,35 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="Button" x:Key="minimizeButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Cursor="Hand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Fill="Transparent" Grid.ColumnSpan="2"/>
+                        <Ellipse Name="Circle" Grid.Column="0" Stroke="Black"
+                                 Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Path x:Name="Sign" Grid.Column="0" Data="M 0,5 H 10 Z"
+                              Stroke="Black" Width="10" Height="10" StrokeThickness="2"
+                              HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="0"/>
+                            </Path.RenderTransform>
+                        </Path>
+                        <ContentPresenter x:Name="HeaderContent" Grid.Column="1"  Margin="4,0,0,0"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Sign" Property="Stroke" Value="DeepSkyBlue"/>
+                            <Setter TargetName="Circle" Property="Stroke" Value="DeepSkyBlue"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

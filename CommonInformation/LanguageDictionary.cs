@@ -27,6 +27,8 @@ namespace CommonInformation
             dictionary.Add("NoteMessage", "Заметка:");
             dictionary.Add("DeleteNoteConfirmation", "Вы действительно хотите удалить выбранную запись?");
             dictionary.Add("DeleteNoteException", "Ошибка удаления записи, текст ошибки:\n{0}");
+            dictionary.Add("AddNoteException", "Ошибка добавления записи, текст ошибки:\n{0}");
+            dictionary.Add("EditNoteException", "Ошибка редактирования записи, текст ошибки:\n{0}");
             dictionary.Add("EditNoteInputError", "Не удалось получить заметку для редактирования");
             dictionary.Add("DeleteNoteOperationInputError", "Неккоректные входные данные в операции Delete");
             dictionary.Add("DeleteNoteOperationUnknownError", "Не удалось удалить запись с id = {0}");
