@@ -25,10 +25,17 @@ namespace CommonInformation
             dictionary.Add("MediumPriority", "Средний приоритет");
             dictionary.Add("HightPriority", "Высокий приоритет");
             dictionary.Add("NoteMessage", "Заметка:");
+            dictionary.Add("MoveToArchive", "Переместить в архив");
+            dictionary.Add("MoveFromArchive", "Восстановить из архива");
             dictionary.Add("DeleteNoteConfirmation", "Вы действительно хотите удалить выбранную запись?");
+            dictionary.Add("ArchiveNoteConfirmation", "Вы действительно хотите отметить эту задачу как завершённую, и переместить эту её в архив?");
+            dictionary.Add("UnarchiveNoteConfirmation", "Вы действительно хотите вернуть эту задачу из архива в список активных задач?");
+            dictionary.Add("ArchiveNoteLastConfirmation", "Точно нигде не накосячила?");
             dictionary.Add("DeleteNoteException", "Ошибка удаления записи, текст ошибки:\n{0}");
             dictionary.Add("AddNoteException", "Ошибка добавления записи, текст ошибки:\n{0}");
             dictionary.Add("EditNoteException", "Ошибка редактирования записи, текст ошибки:\n{0}");
+            dictionary.Add("ArchiveNoteException", "Ошибка добавления записи в архив, текст ошибки:\n{0}");
+            dictionary.Add("UnarchiveNoteException", "Ошибка восстановления записи из архива, текст ошибки:\n{0}");
             dictionary.Add("EditNoteInputError", "Не удалось получить заметку для редактирования");
             dictionary.Add("DeleteNoteOperationInputError", "Неккоректные входные данные в операции Delete");
             dictionary.Add("DeleteNoteOperationUnknownError", "Не удалось удалить запись с id = {0}");

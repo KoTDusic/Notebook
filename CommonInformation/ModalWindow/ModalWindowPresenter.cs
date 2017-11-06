@@ -31,7 +31,8 @@ namespace CommonInformation
                 Title = LanguageDictionary.GetValue("Error"),
                 ResizeMode = ResizeMode.CanResize
             };
-            var view = ControlsCreator.GetSimpleTextView(languageKey);
+            var view = ControlsCreator.GetSimpleTextView(languageKey, errorViewsettings);
+            
             ShowModal(view, ControlsCreator.GetCustomCancelButton(LanguageDictionary.GetValue("Close")));
         }
         public static void ShowErrorMessage(string languageKey, params object[] items)

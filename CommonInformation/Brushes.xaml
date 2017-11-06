@@ -1,12 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Ежедневник">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Color x:Key="topBackgroundColor">#C1DCE4</Color>
     <Color x:Key="noteBackgroundColor">LightBlue</Color>
+    <Color x:Key="hightPriorityColor">#ed1b24</Color>
+    <Color x:Key="mediumPriorityColor">#efe3af</Color>
+    <Color x:Key="lowPriorityColor">#b5e51d</Color>
     
     <SolidColorBrush x:Key="topBackgroundBrush" Color="{StaticResource topBackgroundColor}"/>
     <SolidColorBrush x:Key="noteBackgroundBrush" Color="{StaticResource noteBackgroundColor}"/>
-    <LinearGradientBrush x:Key="GrayGradientBrush" StartPoint="0,0" EndPoint="1,1">
+    <SolidColorBrush x:Key="hightPriorityBrush" Color="{StaticResource hightPriorityColor}"/>
+    <SolidColorBrush x:Key="mediumPriorityBrush" Color="{StaticResource mediumPriorityColor}"/>
+    <SolidColorBrush x:Key="lowPriorityBrush" Color="{StaticResource lowPriorityColor}"/>
+    <LinearGradientBrush x:Key="grayGradientBrush" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Color="DarkGray" Offset="0" />
         <GradientStop Color="#CCCCFF" Offset="0.5" />
         <GradientStop Color="DarkGray" Offset="1" />

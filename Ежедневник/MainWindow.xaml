@@ -33,9 +33,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <tb:TaskbarIcon LeftClickCommand="{x:Static notebook:WindowCommands.MoveToTopCommand}"
+            <tb:TaskbarIcon Grid.Row="0" LeftClickCommand="{x:Static notebook:WindowCommands.MoveToTopCommand}"
                             LeftClickCommandParameter="{Binding ElementName=Window}"
-                            Grid.Row="0" IconSource="{Binding Source={x:Static ci:Images.TrayIconImage}}"
+                            IconSource="{Binding Source={x:Static ci:Images.TrayIconImage}}"
                             MenuActivation="RightClick">
                 <tb:TaskbarIcon.ContextMenu>
                     <ContextMenu>
@@ -50,7 +50,15 @@
                 </tb:TaskbarIcon.ContextMenu>
             </tb:TaskbarIcon>
             <Grid Grid.Row="0">
-                <Button Command="{x:Static notebook:WindowCommands.MinimizeWindowCommand}"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0" IsChecked="{Binding ViewArchived}"
+                        CommandParameter="{Binding ElementName=Window}"
+                        Width="32" Height="32" HorizontalAlignment="Right"/>
+                <Button Grid.Column="2" Command="{x:Static notebook:WindowCommands.MinimizeWindowCommand}"
                         CommandParameter="{Binding ElementName=Window}"
                         Width="32" Height="32" HorizontalAlignment="Right" Style="{StaticResource minimizeButton}"/>
             </Grid>

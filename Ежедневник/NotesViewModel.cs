@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using CommonInformation;
@@ -12,9 +14,20 @@ namespace Notebook
 {
     public class NotesViewModel : BaseNotifcationObject
     {
+        private bool _viewArchived;
+
+        public bool ViewArchived
+        {
+            get { return _viewArchived; }
+            set
+            {
+                _viewArchived = value;
+                OnPropertyChanged();
+                FetchDataFromDatabase();
+            }
+        }
+
         public ObservableCollection<Note> Notes { get; } = new ObservableCollection<Note>();
-
-
         public ICommand AddNewNoteCommand { get; private set; }
         public ICommand EditNoteCommand { get; private set; }
         public ICommand DeleteNoteCommand { get; private set; }
@@ -32,13 +45,18 @@ namespace Notebook
 
         private void FetchDataFromDatabase()
         {
-            var notes = NoteRepozitory.GetAll();
-            if (notes == null)
+            var notes = NoteRepozitory.GetAll().ToList();
+            if (!notes.Any())
             {
                 return;
             }
+            var orderedSequence = OrderByPriority(notes, ViewArchived).ToList();
             Notes.Clear();
-            foreach (var note in notes)
+            if (!orderedSequence.Any())
+            {
+                return;
+            }
+            foreach (var note in orderedSequence)
             {
                 Notes.Add(note);
             }
@@ -50,6 +68,12 @@ namespace Notebook
             FetchDataFromDatabase();
         }
 
+        private IEnumerable<Note> OrderByPriority(IEnumerable<Note> collection, bool needArchived)
+        {
+            return collection.Where(note => note.IsArchived == needArchived)
+                             .OrderBy(note => note.Priority)
+                             .ThenBy(note=>note.Date);
+        }
         private void AddNewNoteExecute()
         {
             var viewModel = new AddEditNoteViewModel();
@@ -132,10 +156,83 @@ namespace Notebook
                 ModalWindowPresenter.ShowErrorMessage("DeleteNoteException", e);
             }
         }
-
         private void ArchiveNoteExecute(object obj)
         {
+            var note = obj as Note;
+            if (ViewArchived)
+            {
+                ReturnFromArchive(note);
+            }
+            else
+            {
+                MoveToArchive(note);
+            }
+        }
 
+        private void MoveToArchive(Note note)
+        {
+            var confirmationViewSettings = new ModalWindowSettings
+            {
+                Title = LanguageDictionary.GetValue("Confirmation"),
+                ResizeMode = ResizeMode.NoResize
+            };
+            var confirmationView = ControlsCreator.GetSimpleTextView("ArchiveNoteConfirmation", confirmationViewSettings);
+
+            var result = ModalWindowPresenter.ShowModalOkCancel(confirmationView);
+
+            if (result != true)
+            {
+                return;
+            }
+
+            var lastСonfirmationView = ControlsCreator.GetSimpleTextView("ArchiveNoteLastConfirmation", confirmationViewSettings);
+
+            var lastResult = ModalWindowPresenter.ShowModalOkCancel(lastСonfirmationView);
+
+            if (lastResult != true)
+            {
+                return;
+            }
+
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                note.IsArchived = true;
+                NoteRepozitory.Update(note);
+                FetchDataFromDatabase();
+            }
+            catch (Exception e)
+            {
+                ModalWindowPresenter.ShowErrorMessage("ArchiveNoteException", e);
+            }
+        }
+
+        private void ReturnFromArchive(Note note)
+        {
+            var confirmationViewSettings = new ModalWindowSettings
+            {
+                Title = LanguageDictionary.GetValue("Confirmation"),
+                ResizeMode = ResizeMode.NoResize
+            };
+            var confirmationView = ControlsCreator.GetSimpleTextView("UnarchiveNoteConfirmation", confirmationViewSettings);
+
+            var result = ModalWindowPresenter.ShowModalOkCancel(confirmationView);
+
+            if (result != true)
+            {
+                return;
+            }
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                note.IsArchived = false;
+                NoteRepozitory.Update(note);
+                FetchDataFromDatabase();
+            }
+            catch (Exception e)
+            {
+                ModalWindowPresenter.ShowErrorMessage("UnarchiveNoteException", e);
+            }
         }
     }
 }

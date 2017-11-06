@@ -4,9 +4,9 @@ namespace DatabaseController.Models
 {
     public enum NotePriority
     {
-        Low,
-        Medium,
-        Hight
+        Low = 3,
+        Medium = 2,
+        Hight = 1
     }
     public class Note : BaseNotifcationObject
     {
@@ -95,7 +95,8 @@ namespace DatabaseController.Models
                 Date = Date,
                 Id = Id,
                 Message = Message,
-                IsArchived = IsArchived
+                IsArchived = IsArchived,
+                Priority = Priority
             };
         }
     }
