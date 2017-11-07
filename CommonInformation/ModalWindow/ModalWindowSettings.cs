@@ -12,6 +12,8 @@ namespace CommonInformation.ModalWindow
         public int MaxWidth { get; set; }
         public int MaxHeight { get; set; }
         public string Title { get; set; }
-        public ImageSource Icon { get; set; }= new BitmapImage(Images.FolderImage);
+        public ImageSource Icon { get; set; } = new BitmapImage(Images.FolderImage);
+
+        public WindowStartupLocation StartupLocation { get; set; } = WindowStartupLocation.CenterScreen;
     }
 }

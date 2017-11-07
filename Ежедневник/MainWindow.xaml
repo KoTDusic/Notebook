@@ -55,14 +55,13 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Column="0" IsChecked="{Binding ViewArchived}"
-                        CommandParameter="{Binding ElementName=Window}"
-                        Width="32" Height="32" HorizontalAlignment="Right"/>
+                <ToggleButton Grid.Column="0" IsChecked="{Binding ViewArchived}" Style="{StaticResource archiveStatusButton}"
+                        CommandParameter="{Binding ElementName=Window}" HorizontalAlignment="Left" Margin="5"/>
                 <Button Grid.Column="2" Command="{x:Static notebook:WindowCommands.MinimizeWindowCommand}"
                         CommandParameter="{Binding ElementName=Window}"
                         Width="32" Height="32" HorizontalAlignment="Right" Style="{StaticResource minimizeButton}"/>
             </Grid>
-            <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource noteListBoxStyle}">
+            <ListBox Grid.Row="1" ItemsSource="{Binding Notes}" Style="{StaticResource noteListBoxStyle}" Margin="0,5">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">
                         <i:EventTrigger.Actions>

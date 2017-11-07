@@ -24,17 +24,6 @@ namespace CommonInformation
                 ControlsCreator.GetCancelButton());
         }
 
-        public static void ShowErrorMessage(string languageKey)
-        {
-            var errorViewsettings = new ModalWindowSettings
-            {
-                Title = LanguageDictionary.GetValue("Error"),
-                ResizeMode = ResizeMode.CanResize
-            };
-            var view = ControlsCreator.GetSimpleTextView(languageKey, errorViewsettings);
-            
-            ShowModal(view, ControlsCreator.GetCustomCancelButton(LanguageDictionary.GetValue("Close")));
-        }
         public static void ShowErrorMessage(string languageKey, params object[] items)
         {
             var errorViewsettings = new ModalWindowSettings
@@ -83,6 +72,7 @@ namespace CommonInformation
                 wnd.MaxWidth = settings.MaxWidth;
             }
             wnd.ResizeMode = settings.ResizeMode;
+            wnd.WindowStartupLocation = settings.StartupLocation;
             wnd.Title = settings.Title;
             if (settings.Icon != null)
             {

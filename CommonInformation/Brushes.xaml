@@ -5,12 +5,14 @@
     <Color x:Key="hightPriorityColor">#ed1b24</Color>
     <Color x:Key="mediumPriorityColor">#efe3af</Color>
     <Color x:Key="lowPriorityColor">#b5e51d</Color>
-    
+    <Color x:Key="itemBorderColor">LimeGreen</Color>
+
     <SolidColorBrush x:Key="topBackgroundBrush" Color="{StaticResource topBackgroundColor}"/>
     <SolidColorBrush x:Key="noteBackgroundBrush" Color="{StaticResource noteBackgroundColor}"/>
     <SolidColorBrush x:Key="hightPriorityBrush" Color="{StaticResource hightPriorityColor}"/>
     <SolidColorBrush x:Key="mediumPriorityBrush" Color="{StaticResource mediumPriorityColor}"/>
     <SolidColorBrush x:Key="lowPriorityBrush" Color="{StaticResource lowPriorityColor}"/>
+    <SolidColorBrush x:Key="itemBorderBrush" Color="{StaticResource itemBorderColor}"/>
     <LinearGradientBrush x:Key="grayGradientBrush" StartPoint="0,0" EndPoint="1,1">
         <GradientStop Color="DarkGray" Offset="0" />
         <GradientStop Color="#CCCCFF" Offset="0.5" />

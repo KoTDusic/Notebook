@@ -111,35 +111,104 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="ToggleButton" x:Key="archiveStatusButton">
+    <Style TargetType="Button" x:Key="basicArchivedIndicatorStyle">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
-                    <Grid Cursor="Hand">
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" Cursor="{TemplateBinding Cursor}"
+                            Margin="{TemplateBinding Margin}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Grid.Column="0"/>
+                            <Border Name="imageContainer" Grid.Column="1" Opacity="0.5">
+                                <Image Name="Icon" Source="{Binding Source={x:Static commonInformation:Images.ArchiveImage}}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Icon" Property="Source" 
+                                    Value="{Binding Source={x:Static commonInformation:Images.ArchiveActivatedImage}}"/>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="1"
+                                                         Storyboard.TargetName="imageContainer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0:0.4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.5"
+                                                         Storyboard.TargetName="imageContainer"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0:0:0:0.4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    <Style TargetType="ToggleButton" x:Key="archiveStatusButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="MinWidth" Value="24"/>
+        <Setter Property="MinHeight" Value="24"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Grid Cursor="Hand" Background="{TemplateBinding Background}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <Rectangle Fill="Transparent" Grid.ColumnSpan="2"/>
-                        <Ellipse Name="Circle" Grid.Column="0" Stroke="Black"
-                                 Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Path x:Name="Sign" Grid.Column="0" Data="M 0,5 H 10 Z"
-                              Stroke="Black" Width="10" Height="10" StrokeThickness="2"
-                              HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
-                            <Path.LayoutTransform>
-                                <RotateTransform x:Name="RotateTransform"/>
-                            </Path.LayoutTransform>
-                        </Path>
-                        <ContentPresenter x:Name="HeaderContent" Grid.Column="1"  Margin="4,0,0,0"/>
+                        <Border Grid.Column="0" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Border.LayoutTransform>
+                                <ScaleTransform x:Name="taskTransform"/>
+                            </Border.LayoutTransform>
+                            <Image Width="{TemplateBinding MinWidth}" Height="{TemplateBinding MinHeight}"
+                                   Source="{Binding Source={x:Static commonInformation:Images.TaskImage}}" />
+                        </Border>
+                        <Border Grid.Column="1" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Border.LayoutTransform>
+                                <ScaleTransform x:Name="archiveTransform" ScaleX="0"/>
+                            </Border.LayoutTransform>
+                            <Image Width="{TemplateBinding MinWidth}" Height="{TemplateBinding MinHeight}" 
+                                   Source="{Binding Source={x:Static commonInformation:Images.CartotequeImage}}" />
+                        </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="LightBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter Property="ToolTip" Value="{commonInformation:LanguageHelper Key=TasksView}"/>
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation To="180"
-                                                         Storyboard.TargetName="RotateTransform"
-                                                         Storyboard.TargetProperty="Angle"
+                                        <DoubleAnimation To="0"
+                                                         Storyboard.TargetName="archiveTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         Duration="0:0:0:0.2"/>
+                                        <DoubleAnimation To="1"
+                                                         Storyboard.TargetName="taskTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
                                                          Duration="0:0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -147,15 +216,20 @@
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
+                                        <DoubleAnimation To="1"
+                                                         Storyboard.TargetName="archiveTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         Duration="0:0:0:0.2"/>
                                         <DoubleAnimation To="0"
-                                                         Storyboard.TargetName="RotateTransform"
-                                                         Storyboard.TargetProperty="Angle"
+                                                         Storyboard.TargetName="taskTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
                                                          Duration="0:0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
-                            <Setter TargetName="Sign" Property="Stroke" Value="DeepSkyBlue"/>
-                            <Setter TargetName="Circle" Property="Stroke" Value="DeepSkyBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="ToolTip" Value="{commonInformation:LanguageHelper Key=ArchiveView}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

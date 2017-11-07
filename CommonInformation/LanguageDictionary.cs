@@ -26,6 +26,8 @@ namespace CommonInformation
             dictionary.Add("HightPriority", "Высокий приоритет");
             dictionary.Add("NoteMessage", "Заметка:");
             dictionary.Add("MoveToArchive", "Переместить в архив");
+            dictionary.Add("ArchiveView", "Представление архива. Нажмите, что бы перейти к задачам.");
+            dictionary.Add("TasksView", "Представление задач. Нажмите, что бы перейти к архиву задач.");
             dictionary.Add("MoveFromArchive", "Восстановить из архива");
             dictionary.Add("DeleteNoteConfirmation", "Вы действительно хотите удалить выбранную запись?");
             dictionary.Add("ArchiveNoteConfirmation", "Вы действительно хотите отметить эту задачу как завершённую, и переместить эту её в архив?");

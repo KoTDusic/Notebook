@@ -85,6 +85,7 @@ namespace DatabaseController.Models
         public Note()
         {
             _date = DateTime.Now;
+            _priority = NotePriority.Medium;
             _isArchived = false;
         }
 
