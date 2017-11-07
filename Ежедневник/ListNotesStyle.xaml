@@ -20,6 +20,7 @@
     </Style>
     <Style x:Key="noteListBoxStyle" TargetType="ListBox">
         <Setter Property="TextBlock.FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource noteForegroundBrush}"/>
         <Setter Property="TextBlock.FontFamily" Value="Calibri"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
@@ -42,55 +43,75 @@
             <Setter.Value>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="Background" Value="{StaticResource noteBackgroundBrush}"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                 <Border x:Name="brd" Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}" 
-                                        BorderThickness="3" CornerRadius="4">
+                                        BorderBrush="{TemplateBinding BorderBrush}">
                                     <ContentPresenter/>
                                 </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="BorderBrush" Value="{StaticResource itemBorderBrush}"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
             </Setter.Value>
         </Setter>
-        <Setter Property="Background" Value="{StaticResource topBackgroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource mainBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
 
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate DataType="{x:Type models:Note}">
-                    <Grid Name="NoteContainer">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" >
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{Binding Date, StringFormat={x:Static models:Note.DataFormat}}" Margin="5" />
-                            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,1"/>
-                            <TextBlock Grid.Row="2" Text="{Binding Message}" TextWrapping="Wrap" Margin="5"/>
+                    <Border Name="NoteContainer" BorderThickness="3" CornerRadius="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Text="{Binding Date, StringFormat={x:Static models:Note.DataFormat}}"
+                                           Margin="5" />
+                                <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0,0,0,1" />
+                                <TextBlock Grid.Row="2" Text="{Binding Message}" TextWrapping="Wrap" Margin="5" />
+                            </Grid>
+                            <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,0" />
+                            <Button Grid.Column="2" Width="32" Height="32"
+                                    Style="{StaticResource archivedIndicatorStyle}"
+                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}, 
+                            Path=DataContext.(notebook:NotesViewModel.MoveToArchveCommand)}"
+                                    CommandParameter="{Binding}">
+                            </Button>
                         </Grid>
-                        <Border Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,0"/>
-                        <Button Grid.Column="2" Width="32" Height="32" Style="{StaticResource archivedIndicatorStyle}"
-                                Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}, 
-                            Path=DataContext.(notebook:NotesViewModel.MoveToArchveCommand)}" CommandParameter="{Binding}">
-                        </Button>
-                    </Grid>
+                    </Border>
                     <DataTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}" Value="true"/>
+                                <Condition Binding="{Binding Priority}" Value="Low"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="NoteContainer" Property="BorderBrush" Value="{StaticResource lowPriorityitemBorderBrush}"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}" Value="true"/>
+                                <Condition Binding="{Binding Priority}" Value="Medium"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="NoteContainer" Property="BorderBrush" Value="{StaticResource mediumPriorityitemBorderBrush}"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBoxItem}, Path=IsSelected}" Value="true"/>
+                                <Condition Binding="{Binding Priority}" Value="Hight"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="NoteContainer" Property="BorderBrush" Value="{StaticResource hightPriorityitemBorderBrush}"/>
+                        </MultiDataTrigger>
                         <DataTrigger Binding="{Binding Priority}" Value="Low">
                             <Setter TargetName="NoteContainer" Property="Background" Value="{StaticResource lowPriorityBrush}"/>
                         </DataTrigger>

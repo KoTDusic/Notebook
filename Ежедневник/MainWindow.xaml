@@ -18,7 +18,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource topBackgroundBrush}"
+    <Border BorderBrush="Black" BorderThickness="1" Background="{StaticResource mainBackgroundBrush}"
             CornerRadius="5,5,5,5">
         <Border.ContextMenu>
             <ContextMenu>
@@ -55,7 +55,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton Grid.Column="0" IsChecked="{Binding ViewArchived}" Style="{StaticResource archiveStatusButton}"
+                <ToggleButton Grid.Column="0" IsChecked="{Binding ViewArchived}" Style="{StaticResource archiveStatusButtonStyle}"
                         CommandParameter="{Binding ElementName=Window}" HorizontalAlignment="Left" Margin="5"/>
                 <Button Grid.Column="2" Command="{x:Static notebook:WindowCommands.MinimizeWindowCommand}"
                         CommandParameter="{Binding ElementName=Window}"

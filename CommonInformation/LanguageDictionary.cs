@@ -21,7 +21,6 @@ namespace CommonInformation
             dictionary.Add("Error", "Ошибка");
             dictionary.Add("InformationMessage", "Информационное сообщение");
             dictionary.Add("DateText", "Дата заметки:");
-            dictionary.Add("Priority", "Приоритет задачи");
             dictionary.Add("LowPriority", "Низкий приоритет");
             dictionary.Add("MediumPriority", "Средний приоритет");
             dictionary.Add("HightPriority", "Высокий приоритет");
@@ -34,6 +33,7 @@ namespace CommonInformation
             dictionary.Add("ArchiveNoteConfirmation", "Вы действительно хотите отметить эту задачу как завершённую, и переместить эту её в архив?");
             dictionary.Add("UnarchiveNoteConfirmation", "Вы действительно хотите вернуть эту задачу из архива в список активных задач?");
             dictionary.Add("ArchiveNoteLastConfirmation", "Точно нигде не накосячила?");
+            dictionary.Add("Congratulation", "Поздравляю!");
             dictionary.Add("ArchiveNoteApproved", "Рада, ты восхитетельна!)");
             dictionary.Add("DeleteNoteException", "Ошибка удаления записи, текст ошибки:\n{0}");
             dictionary.Add("AddNoteException", "Ошибка добавления записи, текст ошибки:\n{0}");

@@ -9,20 +9,20 @@ namespace CommonInformation
     {
         public static ModalWindowControl GetOkButton(ICommand command = null, object commandParameter = null)
         {
-            var button = GetButton(LanguageDictionary.GetValue("Ok"), ControlLocation.Right, command, commandParameter);
+            var button = GetButton(LanguageDictionary.GetValue("Ok"), ControlLocation.Center, command, commandParameter);
             ((Button) button.Item).IsDefault = true;
             return button;
         }
 
         public static ModalWindowControl GetCancelButton(ICommand command = null, object commandParameter = null)
         {
-            var button = GetButton(LanguageDictionary.GetValue("Cancel"), ControlLocation.Right, command, commandParameter);
+            var button = GetButton(LanguageDictionary.GetValue("Cancel"), ControlLocation.Center, command, commandParameter);
             ((Button)button.Item).IsCancel = true;
             return button;
         }
         public static ModalWindowControl GetCustomCancelButton(string text, ICommand command = null, object commandParameter = null)
         {
-            var button = GetButton(text, ControlLocation.Right, command, commandParameter);
+            var button = GetButton(text, ControlLocation.Center, command, commandParameter);
             ((Button)button.Item).IsCancel = true;
             return button;
         }

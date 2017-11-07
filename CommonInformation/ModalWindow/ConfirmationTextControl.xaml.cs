@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace CommonInformation.ModalWindow
+﻿namespace CommonInformation.ModalWindow
 {
     /// <summary>
     /// Логика взаимодействия для ConfirmationTextControl.xaml

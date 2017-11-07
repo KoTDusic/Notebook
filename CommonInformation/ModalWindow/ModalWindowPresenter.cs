@@ -34,6 +34,16 @@ namespace CommonInformation
             var view = ControlsCreator.GetSimpleTextView(languageKey, errorViewsettings, items);
             ShowModal(view, ControlsCreator.GetCustomCancelButton(LanguageDictionary.GetFormatValue("Close", items)));
         }
+        public static void ShowInformationMessage(FrameworkElement view)
+        {
+            var informationViewsettings = new ModalWindowSettings
+            {
+                Title = LanguageDictionary.GetValue("InformationMessage"),
+                ResizeMode = ResizeMode.CanResize,
+                MinWidth = 400
+            };
+            ShowModal(view, ControlsCreator.GetOkButton(CloseCurrentWindowCommand));
+        }
         public static void ShowInformationMessage(string languageKey, params object[] items)
         {
             var informationViewsettings = new ModalWindowSettings
@@ -85,6 +95,7 @@ namespace CommonInformation
             wnd.ResizeMode = settings.ResizeMode;
             wnd.WindowStartupLocation = settings.StartupLocation;
             wnd.Title = settings.Title;
+            wnd.SizeToContent = settings.SizeToContent;
             if (settings.Icon != null)
             {
                 wnd.Icon = settings.Icon;

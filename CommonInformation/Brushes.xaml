@@ -1,21 +1,26 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Color x:Key="topBackgroundColor">#C1DCE4</Color>
-    <Color x:Key="noteBackgroundColor">LightBlue</Color>
-    <Color x:Key="hightPriorityColor">#ed1b24</Color>
-    <Color x:Key="mediumPriorityColor">#efe3af</Color>
-    <Color x:Key="lowPriorityColor">#b5e51d</Color>
-    <Color x:Key="itemBorderColor">LimeGreen</Color>
+    <Color x:Key="mainBackgroundColor">#9DCFC3</Color>
+    <Color x:Key="hightPriorityColor">#EFB0A7</Color>
+    <Color x:Key="mediumPriorityColor">#C6D1D7</Color>
+    <Color x:Key="lowPriorityColor">#78F492</Color>
+    <Color x:Key="lowPriorityitemBorderColor">#073127</Color>
+    <Color x:Key="mediumPriorityitemBorderColor">#BF88AF</Color>
+    <Color x:Key="hightPriorityitemBorderColor">#F76D87</Color>
+    <Color x:Key="noteForegroundColor">#70739E</Color>
+    <Color x:Key="violetColor">#97709D</Color>
+    <Color x:Key="pinkColor">#F7B8D7</Color>
+    <Color x:Key="lightPinkColor">#F7E7E7</Color>
 
-    <SolidColorBrush x:Key="topBackgroundBrush" Color="{StaticResource topBackgroundColor}"/>
-    <SolidColorBrush x:Key="noteBackgroundBrush" Color="{StaticResource noteBackgroundColor}"/>
+    <SolidColorBrush x:Key="mainBackgroundBrush" Color="{StaticResource mainBackgroundColor}"/>
     <SolidColorBrush x:Key="hightPriorityBrush" Color="{StaticResource hightPriorityColor}"/>
     <SolidColorBrush x:Key="mediumPriorityBrush" Color="{StaticResource mediumPriorityColor}"/>
     <SolidColorBrush x:Key="lowPriorityBrush" Color="{StaticResource lowPriorityColor}"/>
-    <SolidColorBrush x:Key="itemBorderBrush" Color="{StaticResource itemBorderColor}"/>
-    <LinearGradientBrush x:Key="grayGradientBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="DarkGray" Offset="0" />
-        <GradientStop Color="#CCCCFF" Offset="0.5" />
-        <GradientStop Color="DarkGray" Offset="1" />
-    </LinearGradientBrush>
+    <SolidColorBrush x:Key="lowPriorityitemBorderBrush" Color="{StaticResource lowPriorityitemBorderColor}"/>
+    <SolidColorBrush x:Key="mediumPriorityitemBorderBrush" Color="{StaticResource mediumPriorityitemBorderColor}"/>
+    <SolidColorBrush x:Key="hightPriorityitemBorderBrush" Color="{StaticResource hightPriorityitemBorderColor}"/>
+    <SolidColorBrush x:Key="noteForegroundBrush" Color="{StaticResource noteForegroundColor}"/>
+    <SolidColorBrush x:Key="violetBrush" Color="{StaticResource violetColor}"/>
+    <SolidColorBrush x:Key="pinkBrush" Color="{StaticResource pinkColor}"/>
+    <SolidColorBrush x:Key="lightPinkBrush" Color="{StaticResource lightPinkColor}"/>
 </ResourceDictionary>

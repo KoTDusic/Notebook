@@ -2,14 +2,42 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:notebook="clr-namespace:Notebook"
                     xmlns:convertors="clr-namespace:CommonInformation.Convertors;assembly=CommonInformation"
-                    xmlns:commonInformation="clr-namespace:CommonInformation;assembly=CommonInformation">
+                    xmlns:commonInformation="clr-namespace:CommonInformation;assembly=CommonInformation"
+                    xmlns:models="clr-namespace:DatabaseController.Models;assembly=DatabaseController">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/CommonInformation;component/GenericResources.xaml" />
         <ResourceDictionary>
             <convertors:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
     <DataTemplate x:Key="AddNoteTemplate" DataType="{x:Type notebook:AddEditNoteViewModel}">
-        <Border Margin="10" DataContext="{Binding Note}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <DataTemplate.Resources>
+            <Style x:Key="lowPriorityButton" TargetType="RadioButton" BasedOn="{StaticResource radioButtonNoteStyle}">
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource lowPriorityitemBorderBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Background" Value="{StaticResource lowPriorityBrush}" />
+            </Style>
+            <Style x:Key="mediumPriorityButton" TargetType="RadioButton" BasedOn="{StaticResource radioButtonNoteStyle}">
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource mediumPriorityitemBorderBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Background" Value="{StaticResource mediumPriorityBrush}" />
+            </Style>
+            <Style x:Key="hightPriorityButton" TargetType="RadioButton" BasedOn="{StaticResource radioButtonNoteStyle}">
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource hightPriorityitemBorderBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Background" Value="{StaticResource hightPriorityBrush}" />
+            </Style>
+        </DataTemplate.Resources>
+        <Border Margin="10" DataContext="{Binding Note}" Background="{StaticResource mainBackgroundBrush}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid IsSharedSizeScope="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -24,23 +52,28 @@
                 <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,10,0"
                            Text="{commonInformation:LanguageHelper Key=DateText}"/>
                 <DatePicker Grid.Row="0" Grid.Column="1" SelectedDate="{Binding Date}"/>
-                <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
-                          Header="{commonInformation:LanguageHelper Key=Priority}">
-                    <StackPanel Orientation="Vertical">
-                        <RadioButton Content="{commonInformation:LanguageHelper Key=LowPriority}" 
-                                     IsChecked="{Binding Priority, 
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="0" Content="{commonInformation:LanguageHelper Key=LowPriority}"
+                                 Style="{StaticResource lowPriorityButton}"
+                                 IsChecked="{Binding Priority, 
                             Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Low}"/>
-                        <RadioButton Content="{commonInformation:LanguageHelper Key=MediumPriority}"
-                                     IsChecked="{Binding Priority, 
+                    <RadioButton Grid.Column="1" Content="{commonInformation:LanguageHelper Key=MediumPriority}"
+                                 Style="{StaticResource mediumPriorityButton}"
+                                 IsChecked="{Binding Priority, 
                             Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Medium}"/>
-                        <RadioButton Content="{commonInformation:LanguageHelper Key=HightPriority}"
-                            IsChecked="{Binding Priority, 
+                    <RadioButton Grid.Column="2" Content="{commonInformation:LanguageHelper Key=HightPriority}"
+                                 Style="{StaticResource hightPriorityButton}"
+                                 IsChecked="{Binding Priority, 
                             Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Hight}"/>
-                    </StackPanel>
-                </GroupBox>
+                </Grid>
                 <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{commonInformation:LanguageHelper Key=NoteMessage}"/>
-                <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-                    <TextBox Text="{Binding Message}" TextWrapping="Wrap" />
+                <ScrollViewer Background="Transparent" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                    <TextBox Background="Transparent" Foreground="{StaticResource noteForegroundBrush}" Text="{Binding Message}" TextWrapping="Wrap" />
                 </ScrollViewer>
             </Grid>
         </Border>

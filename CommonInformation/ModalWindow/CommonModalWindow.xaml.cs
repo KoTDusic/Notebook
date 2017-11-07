@@ -21,6 +21,10 @@ namespace CommonInformation
                 {
                     PART_RightPanel.Children.Add(item.Item);
                 }
+                if (item.Location == ControlLocation.Center)
+                {
+                    PART_CenterPanel.Children.Add(item.Item);
+                }
             }
         }
     }

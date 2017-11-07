@@ -5,10 +5,12 @@
         <ResourceDictionary Source="Brushes.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="Button" x:Key="commonButtonStyle">
-        <Setter Property="BorderBrush" Value="Blue"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Background" Value="{StaticResource grayGradientBrush}"/>
-        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Foreground" Value="{StaticResource lightPinkBrush}"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Background" Value="{StaticResource violetBrush}"/>
+        <Setter Property="Padding" Value="10"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
@@ -18,12 +20,19 @@
                             Background="{TemplateBinding Background}" 
                             BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                             Padding="{TemplateBinding Padding}" Margin="{TemplateBinding Margin}">
-                        <ContentPresenter Content="{TemplateBinding Content}"/>
+                        <Grid>
+                            <Image Name="image" Grid.Row="0" Visibility="Collapsed"  Width="80"
+                                   Source="{Binding Source={x:Static commonInformation:Images.LilyImage}}"/>
+                            <ContentPresenter Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}" />
+                        </Grid>
                         <Border.RenderTransform>
                             <ScaleTransform x:Name="ScaleTransform"/>
                         </Border.RenderTransform>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefault" Value="True">
+                            <Setter TargetName="image" Property="Visibility" Value="Visible"/>
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
@@ -53,7 +62,7 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
-                            <Setter Property="BorderBrush" Value="Red"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource pinkBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -162,7 +171,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
-    <Style TargetType="ToggleButton" x:Key="archiveStatusButton">
+    <Style TargetType="ToggleButton" x:Key="archiveStatusButtonStyle">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Black"/>
         <Setter Property="MinWidth" Value="24"/>
@@ -230,6 +239,72 @@
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="ToolTip" Value="{commonInformation:LanguageHelper Key=ArchiveView}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="RadioButton" x:Key="radioButtonNoteStyle">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Margin" Value="2"/>
+        <Setter Property="Foreground" Value="{StaticResource noteForegroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border Background="{TemplateBinding Background}" Cursor="{TemplateBinding Cursor}" RenderTransformOrigin="0.5,0.5"
+                            Margin="{TemplateBinding Margin}" BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.RenderTransform>
+                            <ScaleTransform x:Name="ScaleTransform"/>
+                        </Border.RenderTransform>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter HorizontalAlignment="Left" Margin="{TemplateBinding Margin}" Grid.Column="0">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="1.1"
+                                                         Storyboard.TargetName="ScaleTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         Duration="0:0:0:0.2"/>
+                                        <DoubleAnimation To="1.1"
+                                                         Storyboard.TargetName="ScaleTransform"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         Duration="0:0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="1"
+                                                         Storyboard.TargetName="ScaleTransform"
+                                                         Storyboard.TargetProperty="ScaleX"
+                                                         Duration="0:0:0:0.2"/>
+                                        <DoubleAnimation To="1"
+                                                         Storyboard.TargetName="ScaleTransform"
+                                                         Storyboard.TargetProperty="ScaleY"
+                                                         Duration="0:0:0:0.2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                            <Setter Property="BorderBrush" Value="{StaticResource pinkBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

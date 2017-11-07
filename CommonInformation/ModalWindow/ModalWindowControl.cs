@@ -5,6 +5,7 @@ namespace CommonInformation
     public enum ControlLocation
     {
         Left,
+        Center,
         Right
     }
     public class ModalWindowControl

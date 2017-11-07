@@ -69,12 +69,19 @@
     <Compile Include="AddEditNoteView\AddEditNoteView.xaml.cs">
       <DependentUpon>AddEditNoteView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CongratulationWindow.xaml.cs">
+      <DependentUpon>CongratulationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WindowCommands.cs" />
     <Page Include="AddEditNoteView\AddNoteResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEditNoteView\AddEditNoteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CongratulationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

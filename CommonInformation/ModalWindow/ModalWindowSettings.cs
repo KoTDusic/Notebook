@@ -14,6 +14,7 @@ namespace CommonInformation.ModalWindow
         public string Title { get; set; }
         public ImageSource Icon { get; set; } = new BitmapImage(Images.FolderImage);
 
+        public SizeToContent SizeToContent { get; set; } = SizeToContent.Manual;
         public WindowStartupLocation StartupLocation { get; set; } = WindowStartupLocation.CenterScreen;
     }
 }

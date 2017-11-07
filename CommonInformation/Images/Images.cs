@@ -24,5 +24,17 @@ namespace CommonInformation
 
         public static string TaskImageKey = "pack://application:,,,/CommonInformation;component/Images/task_icon.png";
         public static Uri TaskImage = new Uri(TaskImageKey, UriKind.Absolute);
+
+        public static string LilyKey = "pack://application:,,,/CommonInformation;component/Images/lily.png";
+        public static Uri LilyImage = new Uri(LilyKey, UriKind.Absolute);
+
+        public static string LilyTopKey = "pack://application:,,,/CommonInformation;component/Images/lilyTop.png";
+        public static Uri LilyTopImage = new Uri(LilyTopKey, UriKind.Absolute);
+
+        public static string LilyBottomKey = "pack://application:,,,/CommonInformation;component/Images/lilyBottom.png";
+        public static Uri LilyBottomImage = new Uri(LilyBottomKey, UriKind.Absolute);
+
+        public static string LilyTop2Key = "pack://application:,,,/CommonInformation;component/Images/lilyTop2.png";
+        public static Uri LilyTop2Image = new Uri(LilyTop2Key, UriKind.Absolute);
     }
 }
