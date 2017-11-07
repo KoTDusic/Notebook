@@ -200,6 +200,7 @@ namespace Notebook
                 note.IsArchived = true;
                 NoteRepozitory.Update(note);
                 FetchDataFromDatabase();
+                ModalWindowPresenter.ShowInformationMessage("ArchiveNoteApproved");
             }
             catch (Exception e)
             {

@@ -31,8 +31,19 @@ namespace CommonInformation
                 Title = LanguageDictionary.GetValue("Error"),
                 ResizeMode = ResizeMode.CanResize
             };
-            var view = ControlsCreator.GetSimpleTextView(languageKey,items);
+            var view = ControlsCreator.GetSimpleTextView(languageKey, errorViewsettings, items);
             ShowModal(view, ControlsCreator.GetCustomCancelButton(LanguageDictionary.GetFormatValue("Close", items)));
+        }
+        public static void ShowInformationMessage(string languageKey, params object[] items)
+        {
+            var informationViewsettings = new ModalWindowSettings
+            {
+                Title = LanguageDictionary.GetValue("InformationMessage"),
+                ResizeMode = ResizeMode.CanResize,
+                MinWidth = 400
+            };
+            var view = ControlsCreator.GetSimpleTextView(languageKey, informationViewsettings, items);
+            ShowModal(view, ControlsCreator.GetOkButton(CloseCurrentWindowCommand));
         }
 
         public static ICommand CloseCurrentWindowCommand { get;} = new RelayCommand(o=>CloseCurrentWindowExecute());
