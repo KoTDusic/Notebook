@@ -133,11 +133,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonInformation\CommonInformation.csproj">
-      <Project>{1aa3e138-5211-4dd0-a9dc-fdd64c363fc6}</Project>
+      <Project>{dc3de6b3-d65c-406c-a1bc-36d9ad14312e}</Project>
       <Name>CommonInformation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DatabaseController1\DatabaseController.csproj">
-      <Project>{05275299-82B5-4514-8D96-88AFC949D3CE}</Project>
+    <ProjectReference Include="..\DatabaseController\DatabaseController.csproj">
+      <Project>{07382a9f-2b72-4288-ad17-968f6fef3fcf}</Project>
       <Name>DatabaseController</Name>
     </ProjectReference>
   </ItemGroup>

@@ -4,16 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1AA3E138-5211-4DD0-A9DC-FDD64C363FC6}</ProjectGuid>
+    <ProjectGuid>{DC3DE6B3-D65C-406C-A1BC-36D9AD14312E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CommonInformation</RootNamespace>
     <AssemblyName>CommonInformation</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,6 +46,9 @@
   <ItemGroup>
     <Compile Include="BaseNotifcationObject.cs" />
     <Compile Include="Convertors\EnumBooleanConverter.cs" />
+    <Compile Include="Images\Images.cs" />
+    <Compile Include="LanguageDictionary.cs" />
+    <Compile Include="LanguageHelperExtension.cs" />
     <Compile Include="ModalWindow\CommonModalWindow.xaml.cs">
       <DependentUpon>CommonModalWindow.xaml</DependentUpon>
     </Compile>
@@ -56,28 +56,29 @@
       <DependentUpon>ConfirmationTextControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModalWindow\ControlsCreator.cs" />
-    <Compile Include="Images\Images.cs" />
     <Compile Include="ModalWindow\IModalWindowSettings.cs" />
     <Compile Include="ModalWindow\ModalWindowControl.cs" />
     <Compile Include="ModalWindow\ModalWindowPresenter.cs" />
     <Compile Include="ModalWindow\ModalWindowSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
-    <Compile Include="LanguageHelperExtension.cs" />
-    <Compile Include="LanguageDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\left_arrow.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Images\archive.png" />
+    <Resource Include="Images\archive_activated.png" />
+    <Resource Include="Images\cartoteque.png" />
     <Resource Include="Images\folder.ico" />
+    <Resource Include="Images\left_arrow.png" />
+    <Resource Include="Images\lily.png" />
+    <Resource Include="Images\lilyBottom.png" />
+    <Resource Include="Images\lilyTop.png" />
+    <Resource Include="Images\LilyTop2.png" />
+    <Resource Include="Images\loading.gif" />
+    <Resource Include="Images\task_icon.png" />
+    <Resource Include="Images\tray_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ModalWindow\CommonModalWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -85,40 +86,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ModalWindow\ConfirmationTextControl.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="ModalWindow\CommonModalWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ModalWindow\ConfirmationTextControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ModalWindow\ModalWindowStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\tray_icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\archive.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\archive_activated.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\cartoteque.png" />
-    <Resource Include="Images\task_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\lily.png" />
-    <Resource Include="Images\lilyBottom.png" />
-    <Resource Include="Images\lilyTop.png" />
-    <Resource Include="Images\LilyTop2.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets'))" />
-  </Target>
 </Project>

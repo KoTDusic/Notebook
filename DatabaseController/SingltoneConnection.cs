@@ -1,4 +1,7 @@
-﻿using System.Data.SQLite;
+﻿using System.Globalization;
+using System.Linq;
+using DatabaseController.Models;
+using SQLite;
 
 namespace DatabaseController
 {
@@ -6,6 +9,14 @@ namespace DatabaseController
     {
         private static SQLiteConnection _connection;
         private static readonly object SyncObject=new object();
+        private const string NotesDatabaseName = "NOTES";
+
+        private const string NotesCreateScript = "CREATE TABLE NOTES ( " +
+                                                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                                                 "note STRING, " +
+                                                 "date STRING, " +
+                                                 "isArhived BOOLEAN, " +
+                                                 "priority INTEGER);";
 
         public static SQLiteConnection GetInstance()
         {
@@ -15,8 +26,13 @@ namespace DatabaseController
                 {
                     return _connection;
                 }
-                _connection = new SQLiteConnection("Data Source=notes.db; Version=3;");
-                _connection.Open();
+                _connection = new SQLiteConnection("notes.db", SQLiteOpenFlags.ReadWrite|SQLiteOpenFlags.Create);
+                var tableName = _connection.Table<Note>().Table.TableName;
+                var table = _connection.GetTableInfo(tableName);
+                if (table.Count == 0)
+                {
+                    _connection.Execute(NotesCreateScript);
+                }
                 return _connection;
             }
         }
