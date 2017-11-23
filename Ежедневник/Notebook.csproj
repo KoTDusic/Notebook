@@ -131,9 +131,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BackupProvider\BackupProvider.csproj">
+      <Project>{44ae3d50-be67-4bed-8085-cc5a2ecd3117}</Project>
+      <Name>BackupProvider</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonInformation\CommonInformation.csproj">
       <Project>{dc3de6b3-d65c-406c-a1bc-36d9ad14312e}</Project>
       <Name>CommonInformation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ConfigProvider\ConfigProvider.csproj">
+      <Project>{ca2f507d-ebad-42b5-9aff-0e803e14e30e}</Project>
+      <Name>ConfigProvider</Name>
     </ProjectReference>
     <ProjectReference Include="..\DatabaseController\DatabaseController.csproj">
       <Project>{07382a9f-2b72-4288-ad17-968f6fef3fcf}</Project>

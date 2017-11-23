@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using BackupProvider;
 using CommonInformation;
 using CommonInformation.ModalWindow;
+using ConfigProvider;
 using DatabaseController.Models;
 using DatabaseController.Repozitorys;
 // ReSharper disable UseStringInterpolation
@@ -14,7 +18,10 @@ namespace Notebook
 {
     public class NotesViewModel : BaseNotifcationObject
     {
+        private readonly CancellationTokenSource _cts = new CancellationTokenSource();
         private bool _viewArchived;
+        private readonly TimeSpan _bacupCheckInterval = TimeSpan.FromMinutes(30);
+        private BackupStatus _backupStatus;
 
         public bool ViewArchived
         {
@@ -24,6 +31,19 @@ namespace Notebook
                 _viewArchived = value;
                 OnPropertyChanged();
                 FetchDataFromDatabase();
+            }
+        }
+
+        public BackupStatus BackupStatus
+        {
+            get
+            {
+                return _backupStatus;
+            }
+            set
+            {
+                _backupStatus = value;
+                OnPropertyChanged();
             }
         }
 
@@ -64,6 +84,8 @@ namespace Notebook
 
         public NotesViewModel()
         {
+            var result = ConfigManager.LoadData();
+            BackupTask(_cts.Token);
             InitCommands();
             FetchDataFromDatabase();
         }
@@ -76,6 +98,7 @@ namespace Notebook
         }
         private void AddNewNoteExecute()
         {
+            _cts.Cancel();
             var viewModel = new AddEditNoteViewModel();
             var view = new AddEditNoteView(viewModel);
             view.WindowSettings.Title = LanguageDictionary.GetValue("AddNote");
@@ -169,6 +192,18 @@ namespace Notebook
             }
         }
 
+        private async Task BackupTask(CancellationToken token)
+        {
+            while (true)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+                await Task.Delay(_bacupCheckInterval, token);
+                BackupStatus = BackupManager.BackupDatabase();
+            }
+        }
         private void MoveToArchive(Note note)
         {
             var confirmationViewSettings = new ModalWindowSettings

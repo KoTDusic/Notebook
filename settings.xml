@@ -1,0 +1,1 @@
+<Settings xmlns="http://schemas.datacontract.org/2004/07/ConfigProvider" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><backup_path>test</backup_path><database_path>qqqqqq</database_path></Settings>

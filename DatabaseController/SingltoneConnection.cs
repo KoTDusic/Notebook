@@ -9,7 +9,7 @@ namespace DatabaseController
     {
         private static SQLiteConnection _connection;
         private static readonly object SyncObject=new object();
-        private const string NotesDatabaseName = "NOTES";
+        public const string DatabaseFilename = "notes.db";
 
         private const string NotesCreateScript = "CREATE TABLE NOTES ( " +
                                                  "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -26,7 +26,7 @@ namespace DatabaseController
                 {
                     return _connection;
                 }
-                _connection = new SQLiteConnection("notes.db", SQLiteOpenFlags.ReadWrite|SQLiteOpenFlags.Create);
+                _connection = new SQLiteConnection(DatabaseFilename, SQLiteOpenFlags.ReadWrite|SQLiteOpenFlags.Create);
                 var tableName = _connection.Table<Note>().Table.TableName;
                 var table = _connection.GetTableInfo(tableName);
                 if (table.Count == 0)
